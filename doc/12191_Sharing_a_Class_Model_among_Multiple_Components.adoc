@@ -153,9 +153,9 @@ versions of defined Utilities, the opportunity was taken to associate a body wit
 
 === 7 Acceptance Test
 
-Verify that test models, including at least one with two or more components referring
-to a shared class via package reference, compile successfully and produce the expected 
-code.
+Initial testing compiles any non-shared class model e.g CarPark for sanity check.
+A comprehensive test of features using shared packages is available at  https://github.com/xtuml/models/tree/master/VandMC_testing/VerifierTest/Verify11958
+A final sanity check is to build a new Ciera SNAPSHOT with the modified compiler.
 
 === 8 User Documentation
 
