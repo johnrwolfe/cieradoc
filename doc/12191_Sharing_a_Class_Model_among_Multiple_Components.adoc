@@ -2,7 +2,8 @@
 
 === 1 Abstract
 
-Ciera does not support sharing a class model among multiple components within the same application.  An approach for adding this capability is described below.
+Ciera does not support sharing a class model among multiple components within the same application.  
+An approach for adding this capability is described below.
 
 === 2 Introduction and Background
 
@@ -23,7 +24,9 @@ class model via package reference include:
 . Create and delete instances of shared classes
 . Read and write attributes of instances of shared classes, including derived attributes.
 . Invoke class-based and instance-based operations of shared classes, including deferred operations.
-. Invoke operations defined in shared classes.
+. Invoke functions defined in shared packages.
+. Invoke bridge operations defined in an external entity defined in a shared package.
+. Use enumerations and user-defined types declarwed in a shared package.
 . Generate an event to an instance of a shared class
 . Receive an event from an instance of a shared class (via pre-created
 event instance provided to the instance of a shared class as an event
@@ -115,7 +118,8 @@ A new subtype of Type, ComponentSpecificType, is added, with ComponentInClass an
 Two new associations are added to the type class model, one indicating the defining component for a 
 component-specific type and another indicating the referring component for each unresolved type.
 
-Most existing callers requesting a type reference remain unchanged except for the need to pass the instance of ComponentDefinition within which the reference is being added.  For the cases in which a reference to a 
+Most existing callers requesting a type reference remain unchanged except for the need to pass the instance of 
+ComponentDefinition within which the reference is being added.  For the cases in which a reference to a 
 component-independent class type is required, a new operation is provided.  
 
 Type::Resolve() is invoked to resolve built-in, enumerated, and user-defined types while 
@@ -154,9 +158,10 @@ versions of defined Utilities, the opportunity was taken to associate a body wit
 
 === 7 Acceptance Test
 
-Initial testing compiles any non-shared class model e.g CarPark for sanity check.
-A comprehensive test of features using shared packages is available at  https://github.com/xtuml/models/tree/master/VandMC_testing/VerifierTest/Verify11958
-A final sanity check is to build a new Ciera SNAPSHOT with the modified compiler.
+. Initial testing compiles any non-shared class model e.g. CarPark for sanity check.
+. A comprehensive test of features using shared packages is available
+in the https://github.com/xtuml/models/tree/master/VandMC_testing/VerifierTest/Verify11958[Verify11958 model].
+. A final sanity check is to build a new Ciera SNAPSHOT with the modified compiler.
 
 === 8 User Documentation
 
