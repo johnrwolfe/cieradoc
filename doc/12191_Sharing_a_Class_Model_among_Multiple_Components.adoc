@@ -26,7 +26,7 @@ class model via package reference include:
 . Invoke class-based and instance-based operations of shared classes, including deferred operations.
 . Invoke functions defined in shared packages.
 . Invoke bridge operations defined in an external entity defined in a shared package.
-. Use enumerations and user-defined types declarwed in a shared package.
+. Use enumerations and user-defined types declared in a shared package.
 . Generate an event to an instance of a shared class
 . Receive an event from an instance of a shared class (via pre-created
 event instance provided to the instance of a shared class as an event
