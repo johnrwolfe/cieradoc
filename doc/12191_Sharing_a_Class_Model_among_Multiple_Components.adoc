@@ -21,8 +21,9 @@ class model via package reference include:
 . Import shared classes and establish associations between them
 . Establish and remove a link across any association described above
 . Create and delete instances of shared classes
-. Read and write attributes of instances of shared classes
-. Invoke class-based and instance-based operations of shared classes
+. Read and write attributes of instances of shared classes, including derived attributes.
+. Invoke class-based and instance-based operations of shared classes, including deferred operations.
+. Invoke operations defined in shared classes.
 . Generate an event to an instance of a shared class
 . Receive an event from an instance of a shared class (via pre-created
 event instance provided to the instance of a shared class as an event
