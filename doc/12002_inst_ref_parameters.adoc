@@ -188,5 +188,3 @@ changes are required.
 . [[dr-1]] https://support.onefact.net/issues/12002[Ciera: Support interface message parameters of type inst_ref and inst_ref_set]
 . [[dr-2]] https://support.onefact.net/issues/12191[Ciera: Reusing a class in multiple domains]
 . [[dr-3]] https://support.onefact.net/issues/12287[Ciera: Replace positional Port Message parameters with key-value pair encoding]
-
-. https://github.com/amullarney/AdHocTests/tree/12002_base_interface - an hand-edited "proof-of-concept" for interfaces.
