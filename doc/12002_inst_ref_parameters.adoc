@@ -125,6 +125,12 @@ It further seems reasonable to serialize the entire message if any of the messag
 `inst_ref<>` or `inst_ref_set<>`. Issue 12287 has provided the means to serialize messages based on an interface mark.
 This work adds recognition of such a parameter as a trigger to serialize a message.
 
+==== 5.4 File imports
+
+The addition of serialization methods to every class requires that appropriate exception handling be supported which requires 
+modifying the selectivity of adding exception imports. All class implementations must now import XtumlException.
+
+
 ==== 6.1 Model Compiler
 
 . Create interface definition templates to generate component-independent interfaces for all classes, placed in the root package.
