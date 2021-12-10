@@ -16,19 +16,14 @@ Refer to <<dr-1>>, <<dr-2>> and <<dr-3>>for background.
 . Serialize as a JSON string each instance referenced by a parameter of type
 `inst_ref<>` or `inst_ref_set<>`. 
 . The values of all application attributes and current state are passed for each 
-parameter of type `<inst_ref>`.
+parameter of type `inst_ref<>`.
 . The instance population in the sending component is not affected by sending 
 one or more instances as message parameters.
 . Each instance received as a message parameter is added to the instance population
 of the receiving component.
 . Establishing associations involving received instances is the responsibility
-of the model in the receiving component.  Rationale follows:
-.. Formalizing associations is not recommended.
-.. Additional work is required to avoid passing the values of referential attributes.
-.. The values of referential attributes may be useful to the recipient regardless of 
-whether an association link is established.
-.. Only a receiving application model can know when it is appropriate to use referential 
-attribute values to establish association links between instances.    
+of the model in the receiving component as only that component has sufficient knowledge
+to determine which associations to establish and when to do so.
 
 === 4 Analysis
 
@@ -91,26 +86,26 @@ The location of component-dependent interface definitions is not changed by this
 An xtUML interface definition may be referenced by many different ports
 sprouted by many different components.  A single Java interface is generated 
 for each xtUML interface definition.  For any message carrying a parameter 
-of type `inst_ref<class>`, the component-independent interface representing 
+of type `inst_ref<>`, the component-independent interface representing 
 the class of interest must be used when declaring parameters accepted by methods
 declared within such an interface.
 
 For an xtUML port formalized by an interface, a Java class that implements the 
 relevant Java interface is generated.  Methods associated with messages carrying 
-parameters of type `inst_ref<class>` must then use the component-independent 
+parameters of type `inst_ref<>` must then use the component-independent 
 interface representing the class of interest when declaring parameters of type
-`inst_ref<class>`. However, the port implementation receiving an `inst_ref<class>`
+`inst_ref<>`. However, the port implementation receiving an `inst_ref<>`
 must invoke the component-specific implementation of static deserialize in order 
 to construct the appropriate instance. 
 
-To summarize, for an interface message carrying a parameter of type `inst_ref<class>`, the
+To summarize, for an interface message carrying a parameter of type `inst_ref<>`, the
 component-independent interface representing the relevant class is used to declare
 arguments for methods declared or defined within the:
 
 * Java interface representing the xtUML interface of interest
 * Java port classes representing xtUML ports formalized by the xtUML interface of interest
 
-Any method representing a port-message activity accepting a parameter of type `inst_ref<class>`, 
+Any method representing a port-message activity accepting a parameter of type `inst_ref<>`, 
 defined within a port class, requires special treatment to allow component-specific use of the 
 incoming argument, which is declared using the component-independent interface representing the 
 class in question. This is achieved by using a specialized name for the argument in the port-message 
@@ -119,10 +114,10 @@ value within the body of the activity.
 
 Work required for the resolution of issue 12191 <<dr-2>> has some overlap with the modifications required 
 for this issue. Issue 12191 explicitly represents, in the architecture, the separation of the 
-component-independent definition of a class from the component-specific component-in-class representation.
+component-independent definition of a class from the component-specific class-in-component representation.
 
 It further seems reasonable to serialize the entire message if any of the message parameters are of type 
-`inst_ref<>` or `inst_ref_set<>`. Issue 12287 has provided the means to serialize messages based on an interface mark.
+`inst_ref<>` or `inst_ref_set<>`. Issue 12287 <<dr-3>> has provided the means to serialize messages based on an interface mark.
 This work adds recognition of such a parameter as a trigger to serialize a message.
 
 ==== 5.4 File imports
@@ -135,7 +130,7 @@ modifying the selectivity of adding exception imports. All class implementations
 
 . Create interface definition templates to generate component-independent interfaces for all classes, placed in the root package.
 . Modify existing component-specific interface templates to extend the component-independent class interface.
-. Add a `toString()` [ or, `serialize()`] and a static `deserialize()` methods to the component-specific implementations of each class. While 
+. Add a `serialize()` method and a static `deserialize()` method to the component-specific implementations of each class. While 
 APIs exist for such transformations, generating methods by iteration over class attributes allows for suppression of referential attributes. Also, JSON deserialization appears to need to create the target instance, but Ciera requires the constructor to be given a context.
 . Modify template for generating Java interface representing xtUML interface definition to use component-independent interface for 
 any class used as a message parameter.
@@ -191,6 +186,6 @@ changes are required.
 
 === 11 Document References
 
-. [[dr-1]] https://support.onefact.net/issues/12002[Ciera: Support interface message parameters of type inst_ref and inst_ref_set]
-. [[dr-2]] https://support.onefact.net/issues/12191[Ciera: Reusing a class in multiple domains]
-. [[dr-3]] https://support.onefact.net/issues/12287[Ciera: Replace positional Port Message parameters with key-value pair encoding]
+. [[dr-1]] https://support.onefact.net/issues/12002[12002: Support interface message parameters of type inst_ref and inst_ref_set]
+. [[dr-2]] https://support.onefact.net/issues/12191[12191: Reusing a class in multiple domains]
+. [[dr-3]] https://support.onefact.net/issues/12287[12287: Replace positional Port Message parameters with key-value pair encoding]
