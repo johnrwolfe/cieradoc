@@ -35,10 +35,14 @@ which is inconvenient and tedious to build and maintain.
 
 Serialization of interface-message parameters as JSON strings is currently supported
 for core types, and leveraging this approach for `inst_ref<>` and `inst_ref_set<>`
-parameters is sufficient for present needs. Rather than identify only those classes which are 
-shared between components, it will be simpler to add methods to each class; these may be of 
-benefit in future work. Furthermore, if any message parameters are of type `inst_ref<>` or `inst_ref_set<>`, 
-requiring serialization, then all parameters will be serialized.
+parameters is sufficient for present needs. This requires generation of `serialize` and 
+`deserialize` methods for the classes involved. Note that the `serialize` method must invoke 
+attribute `get` methods to correctly evaluate derived attribute values.
+
+While use of a class as the type of a Formal Parameter of a Port Message could 
+be determined by a navigation at render time, the complexity of that navigation, 
+taken together with the low probablity in general of such use, has driven a decision 
+to set an attribute on the Class on discovery of such use during Message transform.
 
 === 5 Design
 
@@ -122,8 +126,8 @@ This work adds recognition of such a parameter as a trigger to serialize a messa
 
 ==== 5.4 File imports
 
-The addition of serialization methods to every class requires that appropriate exception handling be supported which requires 
-modifying the selectivity of adding exception imports. All class implementations must now import XtumlException.
+Adding serialization methods to a class requires that appropriate exception handling be supported which entails 
+modifying the selectivity of adding exception imports. For simplicity, all class implementations now import XtumlException.
 
 
 ==== 6.1 Model Compiler
