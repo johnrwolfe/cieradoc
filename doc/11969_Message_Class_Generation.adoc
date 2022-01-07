@@ -67,7 +67,8 @@ The Payroll application should be built with suggested markings and tested with 
 
 === 9 User Documentation
 
-Describe the end user documentation that was added for this change.
+This feature is currently supported only in the Maile Technical Ciera releases; see:
+https://github.com/MaileTechnical/ciera/wiki/Marking
 
 === 10 Code Changes
 
