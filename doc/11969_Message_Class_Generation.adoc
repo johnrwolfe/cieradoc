@@ -47,23 +47,20 @@ named messages.
 === 5 Design
 
 * Add a mark named `GenerateMessageClasses` to be applied to an interface definition.  This 
-mark accepts as parameters the name of the interface definition and the path (including the
-project name) to it.
+mark accepts as parameters the name of the interface definition.
 
 * Develop templates for generation of a Java class corresponding to a message.
 * At Interface.render(), when marked: for each related (R419) message apply the templates to emit a Java class file.
-* Use the Interface file path and package name as bases for emitting to a child package of the interface package.
+* Use the Interface file path and package name as basis for emitting to a child package of the interface package.
 
 === 6 Work required
 
 === 7 Implementation Comments
 
-Branch https://github.com/amullarney/ciera/tree/Ciera11969_exploratory is an early prototype of message class generation. +
-It marks a Port rather than an Interface, generating classes into the Port implementation package - which is less appropriate. +
 
 === 8 Acceptance Test
 
-The Payroll application should be built with suggested markings and tested with browser clients.
+The Payroll application has been built with suggested markings and tested with browser clients.
 
 === 9 User Documentation
 
@@ -73,10 +70,8 @@ https://github.com/MaileTechnical/ciera/wiki/Marking
 === 10 Code Changes
 
 - fork/repository: https://github.com/amullarney/ciera
-- branch: https://github.com/amullarney/ciera/tree/Ciera11969_exploratory
+- branch: https://github.com/amullarney/ciera/commit/90567e80de0b060ecdc327012b849e71390b8312 ( awaiting merge )
 
-----
- Put the file list here
 ----
 
 === 11 Document References
