@@ -27,8 +27,8 @@ to determine which associations to establish and when to do so.
 
 === 4 Analysis
 
-The xtUML editor supports interface-message parameters of type `inst_ref<>` and 
-`inst_ref_set<>` as does Verifier and MC-3020.  This support is useful both for communication 
+The xtUML editor, Verifier, and MC-3020 all support interface-message parameters of 
+type `inst_ref<>` and `inst_ref_set<>`.  This support is useful both for communication 
 between xtUML components sharing a common class model and for interaction between 
 xtUML components and external code.  The alternative involves modeled data marshaling,
 which is inconvenient and tedious to build and maintain.  
@@ -38,11 +38,6 @@ for core types, and leveraging this approach for `inst_ref<>` and `inst_ref_set<
 parameters is sufficient for present needs. This requires generation of `serialize` and 
 `deserialize` methods for the classes involved. Note that the `serialize` method must invoke 
 attribute `get` methods to correctly evaluate derived attribute values.
-
-While use of a class as the type of a Formal Parameter of a Port Message could 
-be determined by a navigation at render time, the complexity of that navigation, 
-taken together with the low probablity in general of such use, has driven a decision 
-to set an attribute on the Class on discovery of such use during Message transform.
 
 === 5 Design
 
@@ -73,19 +68,14 @@ refer, via package reference, to a shared definition of the class in question.  
 class generated for each xtUML class in a component, whether shared or not, is specialized based on the 
 component using it.
 
-Java allows an interface definition to extend another such definition, so a
-component-independent interface for each xtUML class is added by this work such
-that every xtUML class is represented by:
+For each xtUML class defined outside a component and referred to via package reference by
+a component, a component-independent Java interface representing the xtUML class is added 
+by this work so that every such xtUML class is represented by:
 
 * A component-independent interface which publishes nothing but its name.
-* An extended component-specific interface which publishes:
+* A component-specific interface, which extends the component-independent one and publishes:
 ** xtUML-model-level attribute accessors
 ** xtUML-model-level operations
-
-Component-independent interface definitions are only realized as files when the class is used in the context 
-of a message parameter; the emitted files are placed in the root package.
-
-The location of component-dependent interface definitions is not changed by this work.
 
 An xtUML interface definition may be referenced by many different ports
 sprouted by many different components.  A single Java interface is generated 
@@ -134,18 +124,19 @@ modifying the selectivity of adding exception imports. For simplicity, all class
 
 . Create interface definition templates to generate component-independent interfaces for all classes, placed in the root package.
 . Modify existing component-specific interface templates to extend the component-independent class interface.
-. Add a `serialize()` method and a static `deserialize()` method to the component-specific implementations of each class. While 
-APIs exist for such transformations, generating methods by iteration over class attributes allows for suppression of referential attributes. Also, JSON deserialization appears to need to create the target instance, but Ciera requires the constructor to be given a context.
+. Add a `serialize()` method and a static `deserialize()` method to the component-specific implementations of each class. 
+While APIs exist for such transformations, generating methods by iteration over class attributes allows for suppression of 
+referential attributes. Also, JSON deserialization appears to need to create the target instance, but Ciera requires the constructor 
+to be given a context.
 . Modify template for generating Java interface representing xtUML interface definition to use component-independent interface for 
 any class used as a message parameter.
 . Modify template for generating port class to use component-independent interface for any class used as a message parameter.
-. Modify template for generating port-message-activity method to cast each `inst_ref<>` or `inst_ref_set<>` parameter variable to the component-specific
-interface variable used within the method body, initializing this variable with the value of the incoming parameter.
+. Modify template for generating port-message-activity method to cast each `inst_ref<>` or `inst_ref_set<>` parameter variable to 
+the component-specific interface variable used within the method body, initializing this variable with the value of the incoming parameter.
 
 ==== 6.2 Test Cases
 
 Develop a model supporting the test cases enumerated in <<8>>.
-
 
 === 7 Implementation Comments
 
@@ -183,10 +174,7 @@ changes are required.
 
 === 10 Code Changes
 
-
-----
- Put the file list here
-----
+https://github.com/MaileTechnical/ciera/pull/14
 
 === 11 Document References
 
