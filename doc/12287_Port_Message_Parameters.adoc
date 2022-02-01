@@ -32,6 +32,8 @@ Develop test cases to validate both serialized and un-serialized message-passing
 
 === 7 User Documentation
 
+see:  https://github.com/MaileTechnical/ciera/wiki/Marking
+
 For deployments that are entirely Ciera-based, this change will be transparent.
 
 === 8 Document References
