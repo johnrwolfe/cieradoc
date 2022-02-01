@@ -116,6 +116,11 @@ This work adds recognition of such a parameter as a trigger to serialize a messa
 
 ==== 5.4 File imports
 
+Serialization
+
+Ports need access to the implementations of those classes/sets which appear as parameters in port messages. This required adding 
+support for explicit requests for import of the class/set implementations.
+
 Adding serialization methods to a class requires that appropriate exception handling be supported which entails 
 modifying the selectivity of adding exception imports. For simplicity, all class implementations now import XtumlException.
 
@@ -133,6 +138,7 @@ any class used as a message parameter.
 . Modify template for generating port class to use component-independent interface for any class used as a message parameter.
 . Modify template for generating port-message-activity method to cast each `inst_ref<>` or `inst_ref_set<>` parameter variable to 
 the component-specific interface variable used within the method body, initializing this variable with the value of the incoming parameter.
+. The File supertype uses a deferred operation to determine if class/set implementations should be included in imports.
 
 ==== 6.2 Test Cases
 
