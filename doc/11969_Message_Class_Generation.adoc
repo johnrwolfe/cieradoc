@@ -18,7 +18,8 @@ https://github.com/johnrwolfe/CarPark/tree/master/Deployment/src/main/java/deplo
 for examples.
 
 Note: the requirements, below, are specific to the Spring framework. Other frameworks may differ in 
-name formatting, constructor parameters, etc.
+name formatting, constructor parameters, etc.  The marking, however, may be applied independently of 
+Spring framework use.
 
 === 3 Requirements
 
@@ -35,10 +36,10 @@ For example, the accessor names for a data member named `ticketNumber` are:
 
 === 4 Analysis
 
-Marking is applied on an interface boundary, and a class is generated for each
-message of a marked interface.  
+Marking is applied on a port boundary, and a class is generated for each
+message of the interface with which the port is formalized.  
 
-For each marked interface, a package is created as a peer to the generated Java interface 
+For each such interface, a package is created as a peer to the generated Java interface 
 representing the xtUML interface.  Message classes for the marked interface are placed 
 within this package, preventing collisions between identically named message classes 
 generated from different xtUML interface definitions which happen to contain identically
@@ -46,17 +47,15 @@ named messages.
 
 === 5 Design
 
-* Add a mark named `GenerateMessageClasses` to be applied to an interface definition.  This 
-mark accepts as parameters the name of the interface definition.
+* Add a mark named `GenerateMessageClasses` to be applied to a port instance identified by path.
 
 * Develop templates for generation of a Java class corresponding to a message.
-* At Interface.render(), when marked: for each related (R419) message apply the templates to emit a Java class file.
+* At Interface render ( `Iface.render()` ), when marked: for each related (R419) message apply the templates to emit a Java class file.
 * Use the Interface file path and package name as basis for emitting to a child package of the interface package.
 
 === 6 Work required
 
 === 7 Implementation Comments
-
 
 === 8 Acceptance Test
 
