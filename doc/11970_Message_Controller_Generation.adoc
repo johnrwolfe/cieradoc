@@ -54,6 +54,20 @@ Messages originating from an application port activity invoke an outbound handle
 Branch https://github.com/amullarney/ciera/tree/Ciera11970_msgCtrl is a prototype of message controller generation. +
 It does not take the step of eliminating the shell component.
 
+As noted in the issue, during implementation it became apparent that the controller functionality could be realized 
+directly within the rendering of a marked port. The port must be annotated as `@Controller` which has repercussions 
+for application initialization as port instantiation will now be accomplished by the Spring framework.
+
+The Port class is augmented with an auxiliary Port Descriptor class which is subtyped to allow deferred operations to 
+provide rendering modifications. The Application class is similarly subtyped to provide for different initialization.
+
+A number of markings are provided to specify a Port as WebSocket enabled and to refine certain of its characteristics. 
+See: https://github.com/MaileTechnical/ciera/wiki/Marking
+
+Note: Port, Component, and Application make use of `Singleton` methods to retrieve instance values as needed. This 
+constrains a Spring-enabled deployment to a single Application which does not contain multiple instances of any Component.
+
+
 === 8 Acceptance Test
 
 An existing application should be built with suggested markings and tested with browser clients.
