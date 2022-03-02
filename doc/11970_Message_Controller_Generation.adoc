@@ -58,11 +58,17 @@ As noted in the issue, during implementation it became apparent that the control
 directly within the rendering of a marked port. The port must be annotated as `@Controller` which has repercussions 
 for application initialization as port instantiation will now be accomplished by the Spring framework.
 
+Spring-compliant message classes are generated for the inbound-to-xtUML messages. The Port provides methods to accept 
+these instances, extract parameter values from them and invoke corresponding Port activities. Outbound messages are 
+delivered to browser-based clients as instances of a generic Spring-compliant message carrying a JSON Object with a 
+`messageName` key for identification and a `payload` key which returns a JSON array of key-value pairs from which 
+parameter data is retrieved.
+
 The Port class is augmented with an auxiliary Port Descriptor class which is subtyped to allow deferred operations to 
 provide rendering modifications. The Application class is similarly subtyped to provide for different initialization.
 
-A number of markings are provided to specify a Port as WebSocket enabled and to refine certain of its characteristics. 
-See: https://github.com/MaileTechnical/ciera/wiki/Marking
+A number of markings are provided to specify an Application as SpringApplication and to designate a Port as WebSocket-enabled 
+and to refine certain of its characteristics. See: https://github.com/MaileTechnical/ciera/wiki/Marking
 
 Note: Port, Component, and Application make use of `Singleton` methods to retrieve instance values as needed. This 
 constrains a Spring-enabled deployment to a single Application which does not contain multiple instances of any Component.
@@ -70,11 +76,11 @@ constrains a Spring-enabled deployment to a single Application which does not co
 
 === 8 Acceptance Test
 
-An existing application should be built with suggested markings and tested with browser clients.
+Versions of both the Payroll and CarPark applications have successfully been built and run.
 
 === 9 User Documentation
 
-Describe the end user documentation that was added for this change.
+https://github.com/MaileTechnical/ciera/wiki/Marking
 
 === 10 Code Changes
 
